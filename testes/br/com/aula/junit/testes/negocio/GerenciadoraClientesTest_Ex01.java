@@ -1,0 +1,51 @@
+package br.com.aula.junit.testes.negocio;
+
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+import br.com.aula.junit.negocio.Cliente;
+import br.com.aula.junit.negocio.GerenciadoraClientes;
+
+public class GerenciadoraClientesTest_Ex01 {
+
+	@Test
+	public void testPesquisaCliente() {
+
+		// criando alguns clientes
+		Cliente cliente01 = Cliente.builder()
+				.id(1)
+				.nome("Gustavo Farias")
+				.idade(31)
+				.email("gugafarias@gmail.com")
+				.idContaCorrente(1)
+				.ativo(true)
+				.build();
+		Cliente cliente02 = Cliente.builder()
+				.id(2)
+				.nome("Felipe Augusto")
+				.idade(34)
+				.email("felipeaugusto@gmail.com")
+				.idContaCorrente(2)
+				.ativo(true)
+				.build();
+		
+		// inserindo os clientes criados na lista de clientes do banco
+		List<Cliente> clientesDoBanco = new ArrayList<>();
+		clientesDoBanco.add(cliente01);
+		clientesDoBanco.add(cliente02);
+		
+		GerenciadoraClientes gerClientes = new GerenciadoraClientes(clientesDoBanco);
+		
+		Cliente cliente = gerClientes.pesquisaCliente(1);
+		
+		assertThat(cliente.getId(), is(1));
+		assertThat(cliente.getEmail(), is("gugafarias@gmail.com"));
+		
+	}
+
+}
